@@ -32,7 +32,6 @@ router.post('/api/questionnaire/responses', (req, res) => {
     for (const [questionId, response] of Object.entries(responses)) {
         const currentAnswers = currentQuestions.answers.find(a => a.question_id === parseInt(questionId));
         const correctOption = currentAnswers.correct_option;
-        // const correctAnswerScore = currentAnswers.score;
         const scores = currentQuestions.options.find(a=>a.option_text === response);
         const correctAnswerScore =scores .score;
             score+=correctAnswerScore;
@@ -80,10 +79,7 @@ router.post('/api/questionnaire/responses', (req, res) => {
 
     currentScore = score;
     page = nextPage;
-    
-    console.log("score", score, "page", page);
     const nextQuestions = questionnaireData.questionnaire.find(item => item.page_no === nextPage);
-
     res.json({ questions: nextQuestions, nextPage: nextPage, currentScore: score });
 });
 
